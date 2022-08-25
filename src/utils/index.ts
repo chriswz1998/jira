@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export const isFalsy = (value: any) => (value === 0 ? false : !value)
+export const isFalsy = (value: unknown) => (value === 0 ? false : !value)
 
 export const cleanObject = (object: object) => {
   const result = { ...object }
@@ -19,7 +19,7 @@ export const useMount = (callback: () => void) => {
   useEffect(() => callback(), [])
 }
 
-export const useDebounce = (param: any, delay?: number) => {
+export const useDebounce = <V>(param: V, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(param)
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedValue(param), delay)

@@ -1,0 +1,34 @@
+@import '~antd/dist/antd.less';
+
+html {
+  font-size: 62.5%;
+}
+
+html body #root .App {
+  min-height: 100vh;
+}
+
+.ant-table {
+  .ant-table-thead {
+    tr {
+      th {
+        font-size: 1.8rem;
+        background-color: #f5f6f8;
+      }
+    }
+  }
+
+  .ant-table-tbody {
+    tr {
+      &.ant-table-row-selected {
+        td {
+          //background: red !important;
+        }
+      }
+
+      td {
+        color: #666;
+      }
+    }
+  }
+}

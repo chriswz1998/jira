@@ -1,33 +1,57 @@
 import React, { ReactNode, useContext, useState } from 'react'
-import * as auth from 'auth-provider'
-import { User } from '../screens/project-list/search-panel'
 
-interface AuthForm {
-  username: string
-  password: string
+export interface HttpDefaultPoint {
+  lineNo?: number
+  stationNo?: number
+  staffNo?: number | string
+  staffName?: string
+  stationRole?: string
+  capacity?: number
+  stationQty?: number
+  trackQty?: number
+  acceptHanger?: boolean
+  autoOut?: boolean
+  stationId?: string
+  staffId?: string
 }
 
 const AuthContext = React.createContext<
   | {
-      user: User | null
-      login: (form: AuthForm) => Promise<void>
-      register: (form: AuthForm) => Promise<void>
-      logout: () => Promise<void>
+      setHttpDefaultPoint: (data: HttpDefaultPoint) => void
+      HttpDefaultPoint: HttpDefaultPoint | null
+      onStation: string
+      setOnStation: (data: string) => void
+      outStation: string
+      setOutStation: (data: string) => void
+      clear_table: boolean
+      set_clear_table: (data: boolean) => void
     }
   | undefined
 >(undefined)
+
 AuthContext.displayName = 'AuthContext'
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null)
-  const login = (form: AuthForm) => auth.login(form).then(setUser)
-  const register = (form: AuthForm) => auth.register(form).then(setUser)
-  const logout = () => auth.logout().then(() => setUser(null))
+  const [HttpDefaultPoint, setHttpDefaultPoint] =
+    useState<HttpDefaultPoint | null>({})
+
+  const [onStation, setOnStation] = useState<string>('')
+  const [outStation, setOutStation] = useState<string>('')
+  const [clear_table, set_clear_table] = useState<boolean>(false)
 
   return (
     <AuthContext.Provider
       children={children}
-      value={{ user, login, register, logout }}
+      value={{
+        HttpDefaultPoint,
+        setHttpDefaultPoint,
+        onStation,
+        setOnStation,
+        outStation,
+        setOutStation,
+        clear_table,
+        set_clear_table,
+      }}
     />
   )
 }
